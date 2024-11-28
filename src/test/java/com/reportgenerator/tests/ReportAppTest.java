@@ -26,12 +26,14 @@ public class ReportAppTest {
     public  void testPropertyLoader(){
        String  property  =  ReportReader.getFilePath();
        Assert.assertNotNull( property);
+       Assert.assertEquals(  "src/main/resources/report.csv", property);
     }
 
     @Test
     public void testFileReaderWhenPathIsProvided() throws IOException {
         Map<Integer,Employee> employees =  ReportReader.fetchAndParseFileRecords(ReportConstants.FILE_PATH+ReportConstants.FILE_NAME);
         Assert.assertNotNull(employees);
+        Assert.assertTrue( employees.values().size()>4);
     }
 
 
