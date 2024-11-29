@@ -2,11 +2,7 @@ package com.reportgenerator.app;
 
 import com.reportgenerator.fileops.ReportReader;
 import com.reportgenerator.model.Employee;
-import com.sun.xml.internal.ws.util.StringUtils;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,13 +17,9 @@ public class ReportApp {
         reportApp.initApp(filePath);
     }
     public void initApp(String filePath){
-        try {
-            Map<Integer, Employee> employeeRecords = ReportReader.fetchAndParseFileRecords(filePath);
-            employeeRecords = formEmployeeSubordinateHierarchy(employeeRecords);
-            assessAverageSalariesAndLevel (employeeRecords);
-        } catch (IOException e) {
-            throw new RuntimeException( "Failed to locate file or file is Corrupt:" +e.getLocalizedMessage());
-        }
+        Map<Integer, Employee> employeeRecords = ReportReader.readFile(filePath);
+        employeeRecords = formEmployeeSubordinateHierarchy(employeeRecords);
+        assessAverageSalariesAndLevel (employeeRecords);
     }
     public  Map<Integer, Employee> formEmployeeSubordinateHierarchy(Map<Integer, Employee> employeeRecords) {
         for  (Employee employee : employeeRecords.values()){

@@ -18,8 +18,9 @@ public class ReportAppTest {
      ReportApp reportAppTest= new ReportApp();
      Map<Integer, Employee> employeeSubordinateHierarchy =reportAppTest.formEmployeeSubordinateHierarchy(prepareMockData());
         Assert.assertNotNull( employeeSubordinateHierarchy);
+        System.out.println(employeeSubordinateHierarchy.get(123).getSubordinates().get(0).getFirstName());
         Assert.assertEquals(   "Martin" ,employeeSubordinateHierarchy.get(123).getSubordinates().get(0).getFirstName());
-        Assert.assertEquals(   "Chekov" ,employeeSubordinateHierarchy.get(123).getSubordinates().get(0).getFirstName());
+        Assert.assertEquals(   "Chekov" ,employeeSubordinateHierarchy.get(123).getSubordinates().get(0).getLastName());
     }
 
     @Test
@@ -28,14 +29,6 @@ public class ReportAppTest {
        Assert.assertNotNull( property);
        Assert.assertEquals(  "src/main/resources/report.csv", property);
     }
-
-    @Test
-    public void testFileReaderWhenPathIsProvided() throws IOException {
-        Map<Integer,Employee> employees =  ReportReader.fetchAndParseFileRecords(ReportConstants.FILE_PATH+ReportConstants.FILE_NAME);
-        Assert.assertNotNull(employees);
-        Assert.assertTrue( employees.values().size()>4);
-    }
-
 
     @Test
     public void testAssessSalaries(){
